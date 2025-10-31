@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>clickutil.eu — Ahorro inteligente con diseño profesional</title>
+  <meta name="description" content="Guías claras para ahorrar en España: energía, finanzas personales, tecnología sencilla y vida cotidiana. Diseño rápido y optimizado para AdSense." />
+  <link rel="icon" href="/assets/img/logo.svg" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <!-- Estilos específicos SOLO para la home, sin tocar el resto -->
+  <style>
+    /* Hero con fondo (imagen o vídeo) */
+    .hero--bg {
+      position: relative;
+      padding: 0;
+      min-height: clamp(480px, 48vh, 640px);
+      display: grid;
+      align-items: end;
+      overflow: clip;
+      border-bottom: 1px solid color-mix(in oklab, var(--muted) 18%, transparent);
+    }
+    .hero-media { position:absolute; inset:0; z-index:-1; }
+    .hero-media video, .hero-media img { width:100%; height:100%; object-fit: cover; filter: saturate(1.05) contrast(1.02) brightness(.9); }
+    .hero-overlay {
+      background: linear-gradient(180deg, rgba(2,6,23,.00) 0%, rgba(2,6,23,.55) 38%, rgba(2,6,23,.82) 100%);
+      position:absolute; inset:0; z-index:0;
+    }
+    .hero-content { position: relative; z-index: 1; padding: min(6vw, 3rem) 0; }
+    .hero-badges { display:flex; gap:.5rem; flex-wrap:wrap; margin:.5rem 0 1rem }
+    .hero-badges .badge { background: color-mix(in oklab, var(--accent) 22%, transparent) }
+
+    /* Sección categorías rápidas */
+    .quick-cats { padding: 1.2rem 0 }
+    .quick-cats .grid {
+      display:grid; gap:.9rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .cat {
+      background: var(--surface); border:1px solid color-mix(in oklab, var(--muted) 18%, transparent);
+      border-radius: 16px; padding: .95rem; display:flex; gap:.9rem; align-items:center;
+      transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease; box-shadow: var(--shadow);
+    }
+    .cat:hover { transform: translateY(-3px); border-color: color-mix(in oklab, var(--brand) 25%, var(--border)); }
+    .cat-ic { width:44px; height:44px; border-radius: 12px; display:grid; place-items:center;
+      background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 40%, white), var(--brand));
+      box-shadow: 0 8px 20px rgba(14,165,233,.25);
+    }
+    .cat-ic svg { width:22px; height:22px; fill:#fff }
+
+    /* Destacados/recientes */
+    .home-section h2 { font-family: var(--display); margin:.2rem 0 .6rem }
+    .home-section .sub { color: var(--muted); margin-top: -.2rem }
+    .cards.tight .card-body { padding:.85rem .95rem }
+    .cards.tight .excerpt { font-size: .95rem }
+
+    /* Testimonios */
+    .testi {
+      display:grid; gap:1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    }
+    .quote {
+      background: var(--surface); border:1px solid color-mix(in oklab, var(--muted) 18%, transparent);
+      border-radius: 16px; padding: 1rem; box-shadow: var(--shadow);
+    }
+    .quote p { margin:.65rem 0 }
+    .who { display:flex; align-items:center; gap:.7rem; margin-top:.5rem }
+    .avatar { width:40px; height:40px; border-radius:50%; background: color-mix(in oklab, var(--brand-2) 40%, var(--surface)); display:grid; place-items:center; color:#003; font-weight:800 }
+    .stars { color: #ffd76a; letter-spacing:.05em; font-size: .95rem }
+
+    /* Beneficios */
+    .benefits { display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)) }
+    .benefit {
+      background: var(--surface); border:1px solid color-mix(in oklab, var(--muted) 18%, transparent);
+      border-radius: 16px; padding: 1rem; box-shadow: var(--shadow);
+    }
+    .benefit h3 { margin:.2rem 0 .35rem; font-size:1.05rem }
+    .benefit-ic { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 32%, white), var(--accent)); box-shadow: 0 8px 18px rgba(124,92,255,.25) }
+    .benefit-ic svg { width:20px; height:20px; fill:#fff }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 14%, var(--elev)), var(--elev));
+      border:1px solid color-mix(in oklab, var(--brand) 20%, var(--border));
+      border-radius: 18px; padding: 1.1rem; box-shadow: var(--shadow);
+    }
+    .newsletter form { display:grid; gap:.7rem; grid-template-columns: 1.2fr .8fr auto; }
+    .newsletter input, .newsletter button {
+      padding:.78rem .9rem; border-radius: 12px; border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+      background: var(--surface); color: var(--text); font: inherit;
+    }
+    .newsletter button {
+      background: linear-gradient(180deg, color-mix(in oklab, var(--brand-2) 24%, white), var(--brand-2));
+      color:#001018; font-weight:800; cursor:pointer; border-color: color-mix(in oklab, var(--brand-2) 35%, var(--border));
+    }
+    .newsletter .small { font-size:.85rem; color: var(--muted) }
+    @media (max-width: 960px){
+      .newsletter form { grid-template-columns: 1fr }
+    }
+
+    /* Bloques de anuncio en home */
+    .ad.home { margin: 1.2rem 0; }
+  </style>
+</head>
+<body>
+  <!-- HEADER (sin cambios) -->
+  <header>
+    <div class="container top">
+      <a class="brand" href="/"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h12v3H9v3h7v3H9v3h9v3H6z"/></svg></span><span class="title">clickutil.eu</span></a>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a class="active" href="/">Inicio</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/anunciate.html">Anúnciate</a></li>
+          <li><a href="/sobre-nosotros.html">Sobre nosotros</a></li>
+          <li><a href="/contacto.html">Contacto</a></li>
+          <li><a href="/aviso-legal.html">Aviso legal</a></li>
+          <li><a href="/privacidad.html">Privacidad</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container"><div class="ad home"><span class="ad-label">Publicidad</span><small>Slot cabecera (728×90 / 970×250)</small></div></div>
+  </header>
+
+  <!-- HERO con fondo de imagen/vídeo + CTA -->
+  <section class="hero hero--bg" aria-label="Ahorro inteligente con diseño profesional">
+    <div class="hero-media" aria-hidden="true">
+      <!-- Si quieres usar vídeo: descomenta el <video> y comenta el <img> -->
+      <!--
+      <video playsinline autoplay muted loop poster="/assets/img/tecnologia-practica-2025-hero.jpg">
+        <source src="/assets/video/home-hero.mp4" type="video/mp4" />
+      </video>
+      -->
+      <img src="/assets/img/tecnologia-practica-2025-hero.jpg" alt="" />
+      <span class="hero-overlay"></span>
+    </div>
+    <div class="container hero-content">
+      <div class="kicker">Ahorro inteligente · Contenido útil</div>
+      <h1 class="h1">Guías claras para decidir mejor y gastar menos</h1>
+      <p class="lead">Energía, finanzas personales, tecnología práctica y vida cotidiana. Todo explicado con ejemplos, cifras y pasos sencillos. Diseño rápido y pensado para AdSense.</p>
+      <div class="hero-badges">
+        <span class="badge">Energía</span>
+        <span class="badge">Finanzas</span>
+        <span class="badge">Tecnología</span>
+        <span class="badge">Hogar</span>
+      </div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn" href="/blog/">Leer el blog</a>
+        <a class="btn ghost" href="/anunciate.html" aria-label="Opciones de publicidad">Anúnciate aquí</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- Resumen de categorías / temas principales -->
+    <section class="container quick-cats section home-section" aria-labelledby="cats-title">
+      <h2 id="cats-title">Explora por temas</h2>
+      <p class="sub">Accede rápido a lo que más te interesa</p>
+      <div class="grid" role="list">
+        <a class="cat" role="listitem" href="/blog/">
+          <div class="cat-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </div>
+          <div>
+            <strong>Finanzas personales</strong>
+            <p class="excerpt">Tarjetas, hipoteca, seguros y trucos para tu bolsillo.</p>
+          </div>
+        </a>
+        <a class="cat" role="listitem" href="/blog/">
+          <div class="cat-ic" aria-hidden="true" style="background:linear-gradient(180deg,color-mix(in oklab,var(--accent) 32%,white),var(--accent))">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v10H4zM2 16h20v2H2z"/></svg>
+          </div>
+          <div>
+            <strong>Hogar y energía</strong>
+            <p class="excerpt">Luz, electrodomésticos y hábitos eficientes.</p>
+          </div>
+        </a>
+        <a class="cat" role="listitem" href="/blog/">
+          <div class="cat-ic" aria-hidden="true" style="background:linear-gradient(180deg,color-mix(in oklab,var(--brand-2) 40%,white),var(--brand-2))">
+            <svg viewBox="0 0 24 24"><path d="M12 2l4 7h-8l4-7zm0 20l-4-7h8l-4 7z"/></svg>
+          </div>
+          <div>
+            <strong>Tecnología práctica</strong>
+            <p class="excerpt">Gadgets útiles, internet en casa y móvil.</p>
+          </div>
+        </a>
+        <a class="cat" role="listitem" href="/blog/">
+          <div class="cat-ic" aria-hidden="true" style="background:linear-gradient(180deg,color-mix(in oklab,var(--ok) 28%,white),var(--ok))">
+            <svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg>
+          </div>
+          <div>
+            <strong>Vida cotidiana</strong>
+            <p class="excerpt">Compra inteligente, viajes y organización.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Bloque de anuncio -->
+    <div class="container"><div class="ad home"><span class="ad-label">Publicidad</span><small>Slot nativo / display (in-feed)</small></div></div>
+
+    <!-- Artículos destacados / recientes -->
+    <section class="container section home-section" aria-labelledby="recientes-title">
+      <h2 id="recientes-title">Lecturas recomendadas</h2>
+      <p class="sub">Selección con lo más útil y reciente</p>
+      <div class="cards tight">
+        <!-- 1 -->
+        <article class="card">
+          <a href="/blog/ahorrar-luz-2025.html" aria-label="Leer: Factura de luz 2025">
+            <img class="card-img" src="/assets/img/ahorrar-luz-2025-hero.jpg" alt="Trucos para pagar menos luz" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="meta"><span>2025-09-18</span> · <span class="badge">energía</span></div>
+            <h3><a href="/blog/ahorrar-luz-2025.html">Factura de luz 2025: 15 trucos definitivos</a></h3>
+            <p class="excerpt">Tarifas, potencia, hábitos y mini-inversiones que se notan en la factura.</p>
+          </div>
+        </article>
+        <!-- 2 -->
+        <article class="card">
+          <a href="/blog/hipoteca-amortizar-invertir.html" aria-label="Leer: Amortizar hipoteca o invertir">
+            <img class="card-img" src="/assets/img/hipoteca-amortizar-invertir-hero.jpg" alt="Decidir entre amortizar o invertir" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="meta"><span>2025-07-21</span> · <span class="badge">finanzas</span></div>
+            <h3><a href="/blog/hipoteca-amortizar-invertir.html">Amortizar hipoteca o invertir</a></h3>
+            <p class="excerpt">Pon los números delante: interés vs rentabilidad esperada, riesgo y horizonte.</p>
+          </div>
+        </article>
+        <!-- 3 -->
+        <article class="card">
+          <a href="/blog/tecnologia-practica-2025.html" aria-label="Leer: Tecnología práctica 2025">
+            <img class="card-img" src="/assets/img/tecnologia-practica-2025-hero.jpg" alt="Gadgets que simplifican tu vida" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="meta"><span>2025-01-02</span> · <span class="badge">innovación</span></div>
+            <h3><a href="/blog/tecnologia-practica-2025.html">Tecnología práctica que sí aporta</a></h3>
+            <p class="excerpt">Menos postureo, más utilidad: hogar, trabajo, salud y seguridad.</p>
+          </div>
+        </article>
+      </div>
+      <div style="margin-top:.8rem"><a class="btn" href="/blog/">Ver todos los artículos</a></div>
+    </section>
+
+    <!-- Otra ubicación de anuncio (entre secciones) -->
+    <div class="container"><div class="ad home"><span class="ad-label">Publicidad</span><small>Slot in-article / in-content (responsive)</small></div></div>
+
+    <!-- Beneficios / puntos fuertes -->
+    <section class="container section home-section" aria-labelledby="beneficios-title">
+      <h2 id="beneficios-title">Por qué leer clickutil.eu</h2>
+      <p class="sub">Un enfoque práctico, humano y directo</p>
+      <div class="benefits">
+        <div class="benefit" data-reveal>
+          <div class="benefit-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l4 7H8l4-7zm0 20l-4-7h8l-4 7z"/></svg></div>
+          <h3>Claridad y rapidez</h3>
+          <p>Guías paso a paso con lenguaje sencillo y ejemplos reales para decidir sin perder tiempo.</p>
+        </div>
+        <div class="benefit" data-reveal>
+          <div class="benefit-ic" aria-hidden="true" style="background:linear-gradient(180deg,color-mix(in oklab,var(--ok) 30%,white),var(--ok))"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2 9 19l11-11-1.5-1.5z"/></svg></div>
+          <h3>Ahorro real</h3>
+          <p>Consejos con impacto en tu factura de luz, internet y gastos cotidianos, medidos en euros.</p>
+        </div>
+        <div class="benefit" data-reveal>
+          <div class="benefit-ic" aria-hidden="true" style="background:linear-gradient(180deg,color-mix(in oklab,var(--brand) 30%,white),var(--brand))"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+          <h3>Diseño que ayuda</h3>
+          <p>Interfaz rápida, legible y accesible. Mejor experiencia = mejores decisiones.</p>
+        </div>
+        <div class="benefit" data-reveal>
+          <div class="benefit-ic" aria-hidden="true" style="background:linear-gradient(180deg,color-mix(in oklab,var(--accent) 30%,white),var(--accent))"><svg viewBox="0 0 24 24"><path d="M12 3l9 7-9 7-9-7 9-7z"/></svg></div>
+          <h3>Actualizado y útil</h3>
+          <p>Revisión periódica de contenidos para mantener vigentes cifras, enlaces y trucos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="container section home-section" aria-labelledby="testi-title">
+      <h2 id="testi-title">Lo que dicen los lectores</h2>
+      <p class="sub">Experiencias reales con nuestros consejos</p>
+      <div class="testi">
+        <blockquote class="quote" data-reveal>
+          <p>“Bajé la potencia y cambié dos hábitos de uso. La factura de luz cayó un 18% el primer mes.”</p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true">M</div>
+            <div><strong>María · Valencia</strong><div class="stars" aria-label="5 de 5">★★★★★</div></div>
+          </div>
+        </blockquote>
+        <blockquote class="quote" data-reveal>
+          <p>“Su guía de hipoteca me ayudó a decidir con números. Paz mental y mejor planificación.”</p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true">J</div>
+            <div><strong>Javier · Madrid</strong><div class="stars" aria-label="5 de 5">★★★★★</div></div>
+          </div>
+        </blockquote>
+        <blockquote class="quote" data-reveal>
+          <p>“Optimicé fibra y móvil con sus pasos. Mismo servicio, 22€ menos al mes.”</p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true">L</div>
+            <div><strong>Lucía · Sevilla</strong><div class="stars" aria-label="5 de 5">★★★★★</div></div>
+          </div>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Anuncio en home (otra ubicación) -->
+    <div class="container"><div class="ad home"><span class="ad-label">Publicidad</span><small>Slot display 300×250 / 336×280</small></div></div>
+
+    <!-- Newsletter / contacto rápido -->
+    <section class="container section home-section" aria-labelledby="news-title">
+      <h2 id="news-title">Recibe ideas que ahorran</h2>
+      <p class="sub">Sin spam. Un email con consejos útiles y claros.</p>
+      <div class="newsletter" role="region" aria-label="Formulario de suscripción">
+        <form id="nl-form" novalidate>
+          <input aria-label="Tu nombre" name="name" type="text" placeholder="Tu nombre" required />
+          <input aria-label="Tu email" name="email" type="email" placeholder="tu@email.com" required />
+          <button type="submit" aria-label="Suscribirme">Suscribirme</button>
+          <small class="small">Al suscribirte aceptas la <a href="/privacidad.html">Política de privacidad</a>.</small>
+        </form>
+        <p id="nl-msg" class="lead" style="margin:.6rem 0 0; color:var(--muted)" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Enlaces de utilidad / CTA secundario -->
+    <section class="container section home-section" aria-labelledby="cta-title">
+      <h2 id="cta-title">¿Nuevo por aquí?</h2>
+      <p class="sub">Empieza con estas guías esenciales</p>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn" href="/blog/compra-super-ahorro.html">Compra del súper que ahorra</a>
+        <a class="btn ghost" href="/blog/seguridad-digital-2025.html">Seguridad digital básica</a>
+        <a class="btn" href="/blog/fibra-movil-barato.html">Internet barato en casa</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (sin cambios) -->
+  <footer>
+    <div class="container foot">
+      <div>
+        <div class="brand" style="gap:.6rem"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h12v3H9v3h7v3H9v3h9v3H6z"/></svg></span><strong class="title">clickutil.eu</strong></div>
+        <p style="color:var(--muted);max-width:55ch">© <span id="year">2025</span> clickutil.eu · Diseño moderno y optimizado para AdSense.</p>
+      </div>
+      <div><h4>Mapa</h4><ul style="list-style:none;margin:0;padding:0"><li><a href="/">Inicio</a></li><li><a href="/blog/">Blog</a></li><li><a href="/anunciate.html">Anúnciate</a></li></ul></div>
+      <div><h4>Legal</h4><ul style="list-style:none;margin:0;padding:0"><li><a href="/aviso-legal.html">Aviso legal</a></li><li><a href="/privacidad.html">Privacidad</a></li><li><a href="/contacto.html">Contacto</a></li></ul></div>
+      <div><h4>Publicidad</h4><p class="lead" style="font-size:.95rem;color:var(--muted)">Formatos display y nativos recomendados por AdSense.</p></div>
+    </div>
+  </footer>
+
+  <!-- CMP existente (sin cambios) -->
+  <div id="cmp" style="position:fixed;inset:auto 1rem 1rem 1rem;background:var(--surface);border:1px solid color-mix(in oklab, var(--muted) 22%, transparent);border-radius:18px;padding:1rem;display:none;z-index:100">
+    <strong>Tu privacidad en clickutil.eu</strong>
+    <p class="lead" style="font-size:.95rem;color:var(--muted)">Usamos cookies para analítica y anuncios (AdSense). ¿Aceptas?</p>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">
+      <button id="cmp-accept">Aceptar todo</button>
+      <button id="cmp-reject">Rechazar</button>
+    </div>
+  </div>
+
+  <!-- JS global del sitio -->
+  <script src="/assets/js/main.js" defer></script>
+  <!-- JS mínimo para el newsletter (solo en home) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const f = document.getElementById("nl-form");
+      const m = document.getElementById("nl-msg");
+      if(!f || !m) return;
+      f.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = (new FormData(f).get("name") || "").toString().trim();
+        const email = (new FormData(f).get("email") || "").toString().trim();
+        if(!name || !email){ m.textContent = "Por favor, completa nombre y email."; return; }
+        // Aquí podrías integrar tu endpoint real (Beehiiv, Mailchimp, Formspree…)
+        m.textContent = "¡Gracias! Hemos registrado tu interés y te escribiremos pronto.";
+        f.reset();
+      });
+    });
+  </script>
+
+  <!-- Guía de integración AdSense (pegar tu script real aquí) -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=TU_ID_CLIENTE" crossorigin="anonymous"></script>
+  En cada .ad o .ad.home coloca el bloque <ins class="adsbygoogle" ...> según el formato responsive/nativo recomendado.
+  -->
+</body>
+</html>
